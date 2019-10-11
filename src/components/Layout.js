@@ -51,7 +51,29 @@ const Layout = ({ children, isScrolled, windowsSize, backGround }) => (
                   background-color: white
                   color: #4b4b4b
                   box-shadow: 0px 0px 12px 1px rgba(255,255,255,1)
-                  }                    
+                  }
+                  .catLinks:hover{
+                 text-decoration: none;
+                 }  
+                  .catBtn{
+                   font-size: 24px;
+                    position: relative;
+                    top: 60%;
+                    margin-right: 20px;
+                    border: 2px solid #E8E8E8;
+                    background-color: #4b4b4b;
+                    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+                  }
+                  .catBtn:hover {
+                  font-size: 24px;
+                  position: relative;
+                  top: 60%;
+                  margin-right: 20px;
+                  border: 2px solid #E8E8E8;
+                  background-color: white;
+                  color: #4b4b4b;
+                  box-shadow: 0px 0px 12px 1px rgba(255,255,255,1);
+                  }                      
                      `}
     </style>
   </div>

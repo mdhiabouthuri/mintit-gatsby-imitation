@@ -8,8 +8,10 @@ class index extends React.Component {
     this.state = {
       isScrolled: false,
       windowsSize: 0,
+      dropdownOpen: false,
     }
   }
+
 
   componentDidMount() {
     this.handleWindowSizeChange()
@@ -34,17 +36,30 @@ class index extends React.Component {
     })
   }
   handleWindowSizeChange = () => {
+    if (this.state.dropdownOpen && this.state.windowsSize > 915) {
+      this.setState({
+        dropdownOpen: false,
+      })
+    }
     this.setState({
       windowsSize: window.innerWidth,
     })
   }
+  dropdownToggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    })
+  }
 
   render() {
+    console.log(this.state.windowsSize + "_" + this.state.dropdownOpen)
 
     return (
       <Layout windowsSize={this.state.windowsSize}
+              dropdownToggle={this.dropdownToggle.bind(this)}
+              dropdownOpen={this.state.dropdownOpen}
               isScrolled={this.state.isScrolled}
-              backGround={'https://cdn.discordapp.com/attachments/442248513632468994/630738100737409034/Capture.PNG'}
+              backGround={"https://cdn.discordapp.com/attachments/442248513632468994/630738100737409034/Capture.PNG"}
       >
         <Home
           windowsSize={this.state.windowsSize}

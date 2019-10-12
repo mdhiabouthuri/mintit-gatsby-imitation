@@ -4,7 +4,7 @@ import { Button } from "reactstrap"
 import { FaBars } from "react-icons/fa"
 
 
-const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
+const Header = ({ isScrolled, windowsSize, dropdownOpen, dropdownToggle }) => {
   const data = useStaticQuery(graphql`
       query {
           allWordpressPage {
@@ -28,7 +28,6 @@ const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
       titleStr: e,
     }
   })
-  console.log(windowsSize)
   return (
     <div style={isScrolled || dropdownOpen ?
       { backgroundColor: "#333", height: "12vh", position: "sticky", top: "0", zIndex: "1000" }
@@ -96,7 +95,7 @@ const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
                       paddingLeft: "8px",
                       paddingRight: "8px",
                     }}
-                    onClick={toggle}>
+                    onClick={dropdownToggle}>
               <FaBars color={"white"}
                       size='1.4em'/>
             </button>

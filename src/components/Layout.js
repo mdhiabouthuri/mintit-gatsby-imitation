@@ -6,19 +6,15 @@ import Footer from "./Footer"
 import Header from "./Header"
 import Carousel1 from "./Carousel1"
 
-const Layout = ({ children, isScrolled, windowsSize, backGround }) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle, dropdownOpen }) => {
 
-  function toggle() {
-    setDropdownOpen(!dropdownOpen)
-  }
 
   return (
     <div>
       <Header dropdownOpen={dropdownOpen}
               windowsSize={windowsSize}
               isScrolled={isScrolled}
-              toggle={toggle}/>
+              dropdownToggle={dropdownToggle}/>
       <div style={{
         backgroundImage: `url(${backGround})`,
         backgroundAttachment: "fixed",

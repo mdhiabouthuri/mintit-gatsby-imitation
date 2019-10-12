@@ -1,10 +1,8 @@
 import React, { useState } from "react"
 import { graphql, Link, useStaticQuery } from "gatsby"
-import { Button } from "reactstrap"
-import { FaBars } from "react-icons/fa"
+import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap"
 
-
-const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
+const Header = ({ isScrolled, windowsSize }) => {
   const data = useStaticQuery(graphql`
       query {
           allWordpressPage {
@@ -16,7 +14,11 @@ const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
           }
       }
   `)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
+  function toggle() {
+    setDropdownOpen(!dropdownOpen)
+  }
 
   const titles = ["The Agency", "WorkProcess", "Services", "Carreers", "Blog"]
 
@@ -33,9 +35,8 @@ const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
     <div style={isScrolled || dropdownOpen ?
       { backgroundColor: "#333", height: "12vh", position: "sticky", top: "0", zIndex: "1000" }
       : { height: "12vh", position: "absolute", width: "100%" }}>
-      <div style={{ top: "30px", position: "relative", marginRight: "7.6%", marginLeft: "7.6%" }}
+      <div style={{ paddingTop: "30px", position: "relative", marginRight: "7.6%", marginLeft: "7.6%" }}
            className="no-gutters">
-
         <Link to="/">
           <h3
             style={{ textAlign: "left", float: "left", color: "white", fontFamily: "\"Notable\", sans-serif" }}>
@@ -87,55 +88,17 @@ const Header = ({ isScrolled, windowsSize, dropdownOpen, toggle }) => {
             })}
           </div> :
           <div>
-            <button className='menu-btn'
-                    style={{
-                      float: "right",
-                      borderRadius: "13%",
-                      paddingBottom: "4px",
-                      paddingTop: "2px",
-                      paddingLeft: "8px",
-                      paddingRight: "8px",
-                    }}
-                    onClick={toggle}>
-              <FaBars color={"white"}
-                      size='1.4em'/>
-            </button>
+            <button style={{ float: "right" }} onClick={toggle}>x</button>
 
           </div>
         }
 
       </div>
       {dropdownOpen ?
-        <div style={{ backgroundColor: "#333", position: "static", width: "100%" }}>
-          <div style={{ paddingTop: "60px" }}/>
+        <div style={{ backgroundColor: "#333", position: "static", width:'100%' }}>
+          <div style={{ paddingTop: "40px" }}/>
           <hr style={{ border: "1px solid #4a4a4a", marginLeft: "2%", marginRight: "2%" }}/>
-          {queriedTitles.map((e, i) => {
-            return <Link className="catLinks" key={i}
-                         to={e.titlesData[0] && e.titlesData[0].path ? e.titlesData[0].path.replace("//localhost:8000", "") : "/"}>
-              <div
-                style={{
-                  fontFamily: "\"Notable\", sans-serif",
-                  textAlign: "center",
-                  color: "white",
-                  paddingBottom: "20px",
-                }}>
-                {e.titleStr}
-              </div>
-            </Link>
-          })}
-          <Link className="catLinks" to='/'>
-            <div
-              style={{
-                fontFamily: "\"Notable\", sans-serif",
-                textAlign: "center",
-                color: "white",
-                paddingBottom: "20px",
-              }}>
-              WORK WITH US! <div
-              style={{ marginLeft: "5px", display: "inline", fontSize: "20px", color: "#4caf50" }}>→</div>
-            </div>
-          </Link>
-          <br/>
+          <div style={{ color: "white", textAlign: "center", backgroundColor: "#333" }}> azeqsd</div>
         </div> : null}
     </div>
   )

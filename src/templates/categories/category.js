@@ -3,8 +3,8 @@ import { graphql } from "gatsby"
 
 export default ({ data }) => {
   const currentPost = data.wordpressPost
-console.log(pageQuery)
-  console.log("azeaz")
+
+
   return (
     <div style={{width:'100px', height:'100000px', backgroundColor:'red'}}>
       helloqsd

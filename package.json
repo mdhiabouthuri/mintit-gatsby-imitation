@@ -17,6 +17,7 @@
     "react-bootstrap-carousel": "^4.0.1",
     "react-dom": "npm:@hot-loader/react-dom@^16.10.2",
     "react-helmet": "^5.2.1",
+    "react-icons": "^3.7.0",
     "react-moment": "^0.9.6",
     "reactstrap": "^8.0.1"
   },

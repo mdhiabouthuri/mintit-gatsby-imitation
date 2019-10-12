@@ -29,9 +29,7 @@ class Body extends Component {
 
     })
 
-    console.log(posts.map(e => {
-      return e
-    }))
+
 
     return <div>
 

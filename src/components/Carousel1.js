@@ -14,24 +14,27 @@ class Carousel1 extends Component {
   render() {
 //#57b14f
     return (
-      <div style={{marginLeft:'7%', marginTop:'10%'}}>
+      <div style={{ marginLeft: "7%", marginTop: "10%" }}>
         {/*<div style={this.props.windowsSize <= 991 ? { marginLeft: "20px" } : null}>*/}
 
         <RBCarousel
           animation={true}
-          autoplay={true}
+          autoplay={false}
           slideshowSpeed={3000}
           defaultActiveIndex={0}
           version={4}
           className='carousel1'
           indicators={false}
         >
-          <div style={{ height: 400, width: "700px", color: "white" }}>
+          <div style={Object.assign({
+            height: 400,
+            color: "white",
+          }, this.props.windowsSize >= 991 ? { width: "80%" } : { width: "99%" })}>
             <Row className="no-gutters">
               <Col>
                 <h1 style={{ fontFamily: "\"anton\", sans-serif" }}>IT’S ABOUT TIME! </h1>
-                <p style={{ fontSize: "19px" }}> It’s never too late to start! Since you’re here, you just have to cross
-                  the
+                <p style={{ fontSize: "19px", wordWrap: "break-word" }}>
+                  It’s never too late to start! Since you’re here, you just have to cross the
                   line! You think you’re too
                   late? Just walk the line and break the chains! Dare to seize the day!</p>
               </Col>

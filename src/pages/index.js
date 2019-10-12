@@ -41,7 +41,6 @@ class index extends React.Component {
 
   render() {
 
-    //console.log(this.state.windowsSize)
     return (
       <Layout windowsSize={this.state.windowsSize}
               isScrolled={this.state.isScrolled}

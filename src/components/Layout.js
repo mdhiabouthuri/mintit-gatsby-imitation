@@ -77,8 +77,8 @@ const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle,
                   background: #ddd;
                   }
                   .HrAnimation1 {
-                  webkit-animation: pulse 1.5s cubic-bezier(.25,.46,.45,.94) infinite both; 
-                  animation: pulse 1.5s cubic-bezier(.25,.46,.45,.94) infinite both;
+                  webkit-animation: pulse 1s cubic-bezier(.25,.46,.45,.94) infinite both; 
+                  animation: pulse 1s cubic-bezier(.25,.46,.45,.94) infinite both;
                     animation-direction: alternate;
                   }  
                   @keyframes pulse {
@@ -87,7 +87,7 @@ const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle,
                       }
                     
                       to {
-                        width: 40%;
+                        width: 20%;
                       }
                   }    
                   @keyframes pulse2 {
@@ -100,8 +100,8 @@ const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle,
                       }
                   }
                   .HrAnimation2 {
-                      -webkit-animation: pulse2 1.5s cubic-bezier(.25,.46,.45,.94) infinite both;
-                      animation: pulse2 1.5s cubic-bezier(.25,.46,.45,.94) infinite both;
+                      -webkit-animation: pulse2 1s cubic-bezier(.25,.46,.45,.94) infinite both;
+                      animation: pulse2 1s cubic-bezier(.25,.46,.45,.94) infinite both;
                       animation-direction: alternate;
                   }       
                      `}

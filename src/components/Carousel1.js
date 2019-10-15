@@ -92,7 +92,7 @@ const Carousel1 = ({ windowsSize }) => {
               {windowsSize >= 991 ?
                 <Col md={1} style={{ transform: "rotate(90deg)", position: "absolute", left: "80%" }}>
                   {hover ?
-                    <div style={{ transform: "rotate(-90deg)", position: "relative", left: "62px", bottom: "22px" }}>
+                    <div style={{ transform: "rotate(-90deg)", position: "relative", left: "62px", bottom: "44px" }}>
                       <a target="_blank" href="https://www.facebook.com/MintITApps">
                         <img style={{ marginBottom: "15px" }}
                              src="https://mintit.io/wp-content/themes/minty-company/img/assets_landing_mint/facebook_icon.png"
@@ -134,18 +134,21 @@ const Carousel1 = ({ windowsSize }) => {
                     border: "0.3px solid white",
                     width: "100px",
                     position: "relative",
-                  }, hover ? { top: "-69px", right: "69px" } : { marginTop: "-6px" })}/>
-                  <hr className="HrAnimation2" style={Object.assign({
-                    float: "left",
-                    border: "0.5px solid white",
-                    width: "10px",
-                  }, hover ? {
-                    marginTop: "-86px",
-                    marginLeft: "191px",
-                  } : {
-                    marginTop: "-17px",
-                    marginLeft: "260px",
-                  })}/>
+                  }, hover ? { bottom: "85px", right: "77px" } : { top: "-27px", right: "20px" })}/>
+                  <div>
+                    <hr className="HrAnimation2" style={Object.assign({
+                      border: "0.5px solid white",
+                      width: "10px",
+                      position: "absolute",
+                      float: "left",
+                    }, hover ? {
+                      bottom: "85px",
+                      left: "202px",
+                    } : {
+                      top: "3px",
+                      left: "260px",
+                    })}/>
+                  </div>
                 </Col>
                 : null}
             </Row>

@@ -8,8 +8,10 @@ class PageTemplate extends Component {
     this.state = {
       isScrolled: false,
       windowsSize: 0,
+      dropdownOpen: false,
     }
   }
+
 
   componentDidMount() {
     this.handleWindowSizeChange()
@@ -34,22 +36,35 @@ class PageTemplate extends Component {
     })
   }
   handleWindowSizeChange = () => {
+    if (this.state.dropdownOpen && this.state.windowsSize > 915) {
+      this.setState({
+        dropdownOpen: false,
+      })
+    }
     this.setState({
       windowsSize: window.innerWidth,
     })
   }
+  dropdownToggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    })
+  }
 
   render() {
-    const currentPage = this.props.data
+    //console.log(this.props.data)
     return (
       <Layout windowsSize={this.state.windowsSize}
+              dropdownToggle={this.dropdownToggle.bind(this)}
+              dropdownOpen={this.state.dropdownOpen}
               isScrolled={this.state.isScrolled}
               backGround={"https://cdn.discordapp.com/attachments/442248513632468994/631911135519571988/unknown_1.png"}
       >
+
         <Body
           windowsSize={this.state.windowsSize}
           isScrolled={this.state.isScrolled}
-          currentPage={currentPage}
+          currentPage={this.props.data}
         />
       </Layout>
     )
@@ -61,8 +76,9 @@ export default PageTemplate
 export const pageQuery = graphql`
     query currentPageQuery($id: String!) {
         wordpressPage(id: { eq: $id }) {
-            title
             id
+            title
+            path
         }
         allWordpressPost {
             nodes {

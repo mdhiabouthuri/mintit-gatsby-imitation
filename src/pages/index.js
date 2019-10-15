@@ -52,15 +52,13 @@ class index extends React.Component {
   }
 
   render() {
-    console.log(this.state.windowsSize + "_" + this.state.dropdownOpen)
 
     return (
       <Layout windowsSize={this.state.windowsSize}
               dropdownToggle={this.dropdownToggle.bind(this)}
               dropdownOpen={this.state.dropdownOpen}
               isScrolled={this.state.isScrolled}
-              backGround={"https://cdn.discordapp.com/attachments/442248513632468994/630738100737409034/Capture.PNG"}
-      >
+              backGround={"https://cdn.discordapp.com/attachments/442248513632468994/630738100737409034/Capture.PNG"}>
         <Home
           windowsSize={this.state.windowsSize}
           isScrolled={this.state.isScrolled}

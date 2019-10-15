@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import { Button } from "reactstrap"
 import { FaBars } from "react-icons/fa"
@@ -31,7 +31,7 @@ const Header = ({ isScrolled, windowsSize, dropdownOpen, dropdownToggle }) => {
   return (
     <div style={isScrolled || dropdownOpen ?
       { backgroundColor: "#333", height: "12vh", position: "sticky", top: "0", zIndex: "1000" }
-      : { height: "12vh", position: "absolute", width: "100%" }}>
+      : { height: "12vh", position: "absolute", width: "100%", top:'40px' }}>
       <div style={{ top: "30px", position: "relative", marginRight: "7.6%", marginLeft: "7.6%" }}
            className="no-gutters">
 

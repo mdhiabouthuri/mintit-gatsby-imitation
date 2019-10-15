@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 
 import { Col, Row } from "reactstrap"
@@ -7,7 +7,6 @@ import Header from "./Header"
 import Carousel1 from "./Carousel1"
 
 const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle, dropdownOpen }) => {
-
 
   return (
     <div>
@@ -20,9 +19,8 @@ const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle,
         backgroundAttachment: "fixed",
       }} className='FirstBackGround'>
         <Row style={{ height: "100vh" }} className="no-gutters">
-          <Col lg={2}/>
           <Col
-            style={isScrolled ? { marginTop: "120px" } : dropdownOpen ? { marginTop: "99px" } : { marginTop: "200px" }}>
+            style={isScrolled ? { marginTop: "120px" } : dropdownOpen ? { marginTop: "44px" } : { marginTop: "200px" }}>
             <Carousel1 windowsSize={windowsSize}/>
           </Col>
         </Row>

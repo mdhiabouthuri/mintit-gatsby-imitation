@@ -1,82 +1,139 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
+import { graphql, useStaticQuery } from "gatsby"
 import RBCarousel from "react-bootstrap-carousel"
 import "bootstrap/dist/css/bootstrap.css"
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css"
+
 import { Col, Row } from "reactstrap"
 
-class Carousel1 extends Component {
-  constructor(prop) {
-    super(prop)
+const Carousel1 = ({ windowsSize }) => {
+  const data = useStaticQuery(graphql`
+      {
+          allWordpressPost(filter: {categories: {elemMatch: {slug: {eq: "header"}}}}) {
+              nodes {
+                  slug
+                  title
+                  content
+                  categories {
+                      slug
+                  }
+              }
+          }
+      }
+  `)
 
-    this.state = {}
-  }
+  const [hover, setHover] = useState(false)
+  const path = window.location.pathname.replace(/\//g, "").replace(/-/g, "").replace(/page/g, "")
 
-  render() {
-//#57b14f
-    return (
-      <div style={{ marginLeft: "7%", marginTop: "10%" }}>
-        {/*<div style={this.props.windowsSize <= 991 ? { marginLeft: "20px" } : null}>*/}
+  // console.log(path.charAt(path.length - 1) === "s" ? path.slice(0, -1) + "" : path)
 
-        <RBCarousel
-          animation={true}
-          autoplay={false}
-          slideshowSpeed={3000}
-          defaultActiveIndex={0}
-          version={4}
-          className='carousel1'
-          indicators={false}
-        >
-          <div style={Object.assign({
+  let posts = data.allWordpressPost.nodes
+  posts = posts.map((element) => {
+    return {
+      ...element, categories: element.categories.map((subElement) => {
+        return subElement.slug.replace(/-/g, "").replace(/header/g, "")
+      }),
+    }
+  })
+
+
+  const result = posts.filter((item) => {
+    return (item.categories.indexOf(
+      path !== "" ? path.charAt(path.length - 2) !== "s" && path.charAt(path.length - 1) === "s" ? path.slice(0, -1) + "" : path
+        : "index",
+    ) >= 0)
+  })
+  let filteredResult = result.filter(e => e.slug !== "its-about-time-2")
+  console.log(filteredResult)
+
+  // function filterByValue(array, string) {
+  //   return array.filter(o =>
+  //     Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())))
+  // }
+  //
+  // const arrayOfObject = [{ name: "Paul", country: "Canada" }, { name: "Lea", country: "Italy" }, {
+  //   name: "John",
+  //   country: "Italy",
+  // }]
+
+  // console.log(filterByValue(arrayOfObject, 'lea')); // [{name: 'Lea', country: 'Italy'}]
+// console.log(filterByValue(arrayOfObject, 'ita'));
+
+
+  return (
+    <div onMouseEnter={() => setHover(true)}
+         onMouseLeave={() => setHover(false)}
+         style={{ marginLeft: "7%", marginTop: "10%" }}>
+      <RBCarousel
+        animation={true}
+        autoplay={true}
+        slideshowSpeed={3000}
+        defaultActiveIndex={0}
+        version={4}
+        className='carousel1'
+        indicators={false}
+      >
+        {filteredResult.map((e, i) => {
+          return <div key={i} style={Object.assign({
             height: 400,
             color: "white",
-          }, this.props.windowsSize >= 991 ? { width: "80%" } : { width: "99%" })}>
+          }, windowsSize >= 991 ? { width: "80%" } : { width: "99%" })}>
             <Row className="no-gutters">
-              <Col>
-                <h1 style={{ fontFamily: "\"anton\", sans-serif" }}>IT’S ABOUT TIME! </h1>
-                <p style={{ fontSize: "19px", wordWrap: "break-word" }}>
-                  It’s never too late to start! Since you’re here, you just have to cross the
-                  line! You think you’re too
-                  late? Just walk the line and break the chains! Dare to seize the day!</p>
+              <Col >
+                <h1 style={{
+                  letterSpacing: "5px",
+                  fontSize: "60px",
+                  fontFamily: "\"anton\", sans-serif",
+                }}>{e.title} </h1>
+                <p style={{ fontSize: "20px", wordWrap: "break-word" }}
+                   dangerouslySetInnerHTML={{ __html: e && e.content ? e.content : "" }}>
+                </p>
               </Col>
-              {this.props.windowsSize >= 991 ? <Col style={{ transform: "rotate(90deg)" }} md={1}>
-                <h1 style={{ color: "White", fontSize: "19px", whiteSpace: "nowrap" }}>GET SOCIAL!</h1>
-              </Col> : null}
+              {windowsSize >= 991 ?
+                <Col md={1} style={{ transform: "rotate(90deg)" }}>
+                  {hover ?
+                    <div style={{ transform: "rotate(-90deg)", position: "relative", left: "30px", bottom: "87px" }}>
+                      <a href="https://www.facebook.com/MintITApps">
+                        <img style={{ marginBottom: "20px" }}
+                             src="https://mintit.io/wp-content/themes/minty-company/img/assets_landing_mint/facebook_icon.png"
+                             alt="#"/>
+                      </a>
+                      <br/>
+                      <a href="https://www.instagram.com/mintit.io">
+                        <img style={{ marginBottom: "20px" }}
+                             src="https://mintit.io/wp-content/themes/minty-company/img/assets_landing_mint/instagram_icon.png"
+                             alt="#"/>
+                      </a>
+                      <br/>
+                      <a href="https://mintit.io/">
+                        <img style={{ marginBottom: "20px" }}
+                             src="https://mintit.io/wp-content/themes/minty-company/img/assets_landing_mint/googleplus_icon.png"
+                             alt="#"/>
+                      </a>
+                      <br/>
+                      <a href="https://www.youtube.com/">
+                        <img style={{ marginBottom: "20px" }}
+                             src="https://mintit.io/wp-content/themes/minty-company/img/assets_landing_mint/youtube_icon.png"
+                             alt="#"/>
+                      </a>
+                      <br/>
+
+                    </div>
+                    :
+                    <h1 style={{
+                      color: "White",
+                      fontSize: "19px",
+                      whiteSpace: "nowrap",
+                    }}>GET SOCIAL!</h1>}
+                </Col>
+                : null}
             </Row>
           </div>
-
-          <div style={{ height: 400, width: "700px", color: "white" }}>
-            <Row className="no-gutters">
-              <Col>
-                <h1 style={{ fontFamily: "\"anton\", sans-serif", letterSpacing: "3px" }}>TOGETHER WE MOVE ! </h1>
-                <p style={{ fontSize: "19px" }}> At every step of the way, we listen carefully to your ideas, to your
-                  needs,
-                  and we work hard to make them true! At every step of the way, we listen carefully to you; we invest in
-                  your consulting for the success of your projects!</p>
-              </Col>
-              <Col style={{ transform: "rotate(90deg)" }} md={1}>
-                <h1 style={{ color: "White", fontSize: "19px", whiteSpace: "nowrap" }}>GET SOCIAL!</h1>
-              </Col>
-            </Row>
-          </div>
-
-          <div style={{ height: 400, width: "700px", color: "white" }}>
-            <Row className="no-gutters">
-              <Col>
-                <h1 style={{ fontFamily: "\"anton\", sans-serif", letterSpacing: "3px" }}>THE RIGHT ADDRESS! </h1>
-                <p style={{ fontSize: "19px" }}> Here we successfully transform your ideas to application! Here, we
-                  emerge
-                  from ideas to applications! Here, We Do APPs! Welcome at Mint TI!</p>
-              </Col>
-              <Col style={{ transform: "rotate(90deg)" }} md={1}>
-                <h1 style={{ color: "White", fontSize: "19px", whiteSpace: "nowrap" }}>GET SOCIAL!</h1>
-              </Col>
-            </Row>
-          </div>
-        </RBCarousel>
-      </div>
-    )
-  }
-
+        })}
+      </RBCarousel>
+    </div>
+  )
 }
+
 
 export default Carousel1

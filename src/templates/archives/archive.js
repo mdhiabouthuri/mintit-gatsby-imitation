@@ -10,8 +10,10 @@ class PostTemplate extends Component {
     this.state = {
       isScrolled: false,
       windowsSize: 0,
+      dropdownOpen: false,
     }
   }
+
 
   componentDidMount() {
     this.handleWindowSizeChange()
@@ -36,8 +38,18 @@ class PostTemplate extends Component {
     })
   }
   handleWindowSizeChange = () => {
+    if (this.state.dropdownOpen && this.state.windowsSize > 915) {
+      this.setState({
+        dropdownOpen: false,
+      })
+    }
     this.setState({
       windowsSize: window.innerWidth,
+    })
+  }
+  dropdownToggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
     })
   }
 
@@ -45,9 +57,12 @@ class PostTemplate extends Component {
 
     return (
       <Layout windowsSize={this.state.windowsSize}
+              dropdownToggle={this.dropdownToggle.bind(this)}
+              dropdownOpen={this.state.dropdownOpen}
               isScrolled={this.state.isScrolled}
               backGround={"https://cdn.discordapp.com/attachments/442248513632468994/631911135519571988/unknown_1.png"}
       >
+
         <div style={{ backgroundColor: "#4b4b4b", height: "115px" }}>
           <div style={{ textAlign: "center", position: "relative", top: "22%" }}>
             <Button className="catBtn">

@@ -28,6 +28,8 @@ exports.createPages = ({ actions, graphql }) => {
   const pagesTemplate = path.resolve(`./src/templates/pages/page.js`)
   const categoriesTemplate = path.resolve(`./src/templates/categories/category.js`)
   const postsTemplate = path.resolve(`./src/templates/archives/archive.js`)
+  const tagsTemplate = path.resolve(`./src/templates/tags/tag.js`)
+
 
   return graphql(`
     {
@@ -48,6 +50,14 @@ exports.createPages = ({ actions, graphql }) => {
         }
       }
       allWordpressPost {
+        edges {
+          node {
+            id
+            path
+          }
+        }
+      }
+      allWordpressTag {
         edges {
           node {
             id
@@ -76,6 +86,18 @@ exports.createPages = ({ actions, graphql }) => {
 
     result &&
     result.data &&
+    result.data.allWordpressTag &&
+    result.data.allWordpressTag.edges.map(edge => {
+      createPage({
+        path: `${edge.node.path.replace("//localhost:8000", "")}`,
+        component: tagsTemplate,
+        context: {
+          id: `${edge.node.id}`,
+        },
+      })
+    })
+    result &&
+    result.data &&
     result.data.allWordpressPage &&
     result.data.allWordpressPage.edges.map(edge => {
       createPage({
@@ -86,6 +108,7 @@ exports.createPages = ({ actions, graphql }) => {
         },
       })
     })
+
     result &&
     result.data &&
     result.data.allWordpressCategory &&

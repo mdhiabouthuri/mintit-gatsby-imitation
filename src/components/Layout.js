@@ -20,7 +20,7 @@ const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle,
       }} className='FirstBackGround'>
         <Row style={{ height: "100vh" }} className="no-gutters">
           <Col
-            style={isScrolled ? { marginTop: "120px" } : dropdownOpen ? { marginTop: "44px" } : { marginTop: "200px" }}>
+            style={isScrolled ? { marginTop: "120px" } : dropdownOpen ? { marginTop: "44px" } : { marginTop: "160px" }}>
             <Carousel1 windowsSize={windowsSize}/>
           </Col>
         </Row>
@@ -75,7 +75,35 @@ const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle,
                   .menu-btn:hover {
                    background-color: #ddd;
                   background: #ddd;
-}            
+                  }
+                  .HrAnimation1 {
+                  webkit-animation: pulse 1.5s cubic-bezier(.25,.46,.45,.94) infinite both; 
+                  animation: pulse 1.5s cubic-bezier(.25,.46,.45,.94) infinite both;
+                    animation-direction: alternate;
+                  }  
+                  @keyframes pulse {
+                     from {
+                        width: 100%;
+                      }
+                    
+                      to {
+                        width: 40%;
+                      }
+                  }    
+                  @keyframes pulse2 {
+                     from {
+                        width: 50px;
+                      }
+                    
+                      to {
+                        width: 10%;
+                      }
+                  }
+                  .HrAnimation2 {
+                      -webkit-animation: pulse2 1.5s cubic-bezier(.25,.46,.45,.94) infinite both;
+                      animation: pulse2 1.5s cubic-bezier(.25,.46,.45,.94) infinite both;
+                      animation-direction: alternate;
+                  }       
                      `}
       </style>
     </div>

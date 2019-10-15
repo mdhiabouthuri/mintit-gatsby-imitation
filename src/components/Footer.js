@@ -5,7 +5,6 @@ import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css"
 import { InputGroup, InputGroupAddon, Input, Button, Col, Row } from "reactstrap"
 import position from "../images/position.png"
 import phone from "../images/phone.png"
-import Container from "reactstrap/es/Container"
 
 class Footer extends Component {
   constructor(prop) {
@@ -44,16 +43,16 @@ class Footer extends Component {
               </Link>
             </div>
 
-            <h5 style={{
+            <h4 style={{
               position: "relative",
               marginTop: "40px",
               fontFamily: "\"anton\", sans-serif",
-              letterSpacing: "5px", textAlign: "center", color: "#ffffff", width: "100%",
+              letterSpacing: "5px", textAlign: "center", color: "#ffffff", maxWidth: "60%",
               marginLeft: "auto", marginRight: "auto",
             }}>
               Do not miss our updates! Subscribe now to our newsletter
-            </h5>
-            <InputGroup style={{ marginTop: "60px", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
+            </h4>
+            <InputGroup style={{ marginTop: "60px", maxWidth: "70%", marginLeft: "auto", marginRight: "auto" }}>
               <Input className='text-light' placeholder='Email Address'
                      style={{ borderStyle: "white", backgroundColor: "#2e2e2e" }}/>
               <InputGroupAddon addonType="append">

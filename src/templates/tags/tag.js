@@ -16,52 +16,16 @@ class TagTemplate extends Component {
   }
 
 
-  componentDidMount() {
-    this.handleWindowSizeChange()
-    this.handleWindowSizeChange()
-    window.addEventListener("scroll", this.handleScroll)
-    window.addEventListener("resize", this.handleWindowSizeChange)
 
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll)
-    window.removeEventListener("resize", this.handleWindowSizeChange)
-
-  }
-
-  handleScroll = () => {
-    window.requestAnimationFrame(() => {
-      if (this.state.isScrolled === false && window.scrollY > 1)
-        this.setState({ isScrolled: true })
-      else if (this.state.isScrolled === true && window.scrollY < 1)
-        this.setState({ isScrolled: false })
-    })
-  }
-  handleWindowSizeChange = () => {
-    if (this.state.dropdownOpen && this.state.windowsSize > 915) {
-      this.setState({
-        dropdownOpen: false,
-      })
-    }
-    this.setState({
-      windowsSize: window.innerWidth,
-    })
-  }
-  dropdownToggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    })
+  handleState = (state, newState) => {
+    this.setState({ [state]: newState })
   }
 
 
   render() {
 
     return (
-      <Layout windowsSize={this.state.windowsSize}
-              dropdownToggle={this.dropdownToggle.bind(this)}
-              dropdownOpen={this.state.dropdownOpen}
-              isScrolled={this.state.isScrolled}
+      <Layout handleState={this.handleState.bind(this)}
               backGround={"https://cdn.discordapp.com/attachments/442248513632468994/631911135519571988/unknown_1.png"}
       >
 

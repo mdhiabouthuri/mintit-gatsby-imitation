@@ -1,97 +1,86 @@
-import React from "react"
-import PropTypes from "prop-types"
-
+import React, { Component } from "react"
 import { Col, Row } from "reactstrap"
 import Footer from "./Footer"
 import Header from "./Header"
 import Carousel1 from "./Carousel1"
+import "../assets/Layout.css"
 
-const Layout = ({ children, isScrolled, windowsSize, backGround, dropdownToggle, dropdownOpen }) => {
+class Layout extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isScrolled: false,
+      windowsSize: 0,
+      dropdownOpen: false,
+    }
+  }
 
-  return (
-    <div>
-      <Header dropdownOpen={dropdownOpen}
-              windowsSize={windowsSize}
-              isScrolled={isScrolled}
-              dropdownToggle={dropdownToggle}/>
+
+  componentDidMount() {
+    this.handleWindowSizeChange()
+    this.handleWindowSizeChange()
+    window.addEventListener("scroll", this.handleScroll)
+    window.addEventListener("resize", this.handleWindowSizeChange)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll)
+    window.removeEventListener("resize", this.handleWindowSizeChange)
+  }
+
+  handleScroll = () => {
+    window.requestAnimationFrame(() => {
+      if (this.state.isScrolled === false && window.scrollY > 1) {
+        this.setState({ isScrolled: true })
+        this.props.handleState("isScrolled", this.state.isScrolled)
+      } else if (this.state.isScrolled === true && window.scrollY < 1) {
+        this.setState({ isScrolled: false })
+        this.props.handleState("isScrolled", this.state.isScrolled)
+      }
+    })
+  }
+  handleWindowSizeChange = () => {
+    if (this.state.dropdownOpen && this.state.windowsSize > 915) {
+      this.setState({
+        dropdownOpen: false,
+      })
+      this.props.handleState("dropdownOpen", this.state.dropdownOpen)
+    }
+
+    this.setState({
+      windowsSize: window.innerWidth,
+    })
+    this.props.handleState("windowsSize", this.state.windowsSize)
+  }
+  dropdownToggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    })
+    this.props.handleState("dropdownOpen", this.state.dropdownOpen)
+  }
+
+  render() {
+
+    return <div>
+      <Header dropdownOpen={this.state.dropdownOpen}
+              windowsSize={this.state.windowsSize}
+              isScrolled={this.state.isScrolled}
+              dropdownToggle={this.dropdownToggle.bind(this)}/>
       <div style={{
-        backgroundImage: `url(${backGround})`,
+        backgroundImage: `url(${this.props.backGround})`,
         backgroundAttachment: "fixed",
       }} className='FirstBackGround'>
         <Row style={{ height: "100vh" }} className="no-gutters">
           <Col
-            style={isScrolled ? { marginTop: "120px" } : dropdownOpen ? { marginTop: "44px" } : { marginTop: "160px" }}>
-            <Carousel1 windowsSize={windowsSize}/>
+            style={this.state.isScrolled ? { marginTop: "120px" } : this.state.dropdownOpen ? { marginTop: "44px" } : { marginTop: "160px" }}>
+            <Carousel1 windowsSize={this.state.windowsSize}/>
           </Col>
         </Row>
       </div>
-      {children}
+      {this.props.children}
       <Footer/>
-      <style>{`
-              @import url('https://fonts.googleapis.com/css?family=Anton|Notable&display=swap');
-              .Cards:hover {
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
-              }
-                  .SecondBackGround {
-                    background-image: url('https://desktopwalls.net/wp-content/uploads/2014/12/Rain%20Drops%20Window%20Light%20Blur%20Desktop%20Wallpaper.jpg');
-                    background-attachment: fixed;
-                  }
-                  .carousel1 .carousel-control-prev, .carousel1 .carousel-control-next{
-                  visibility: hidden;
-                  }
-                  .catLinks:hover{
-                 text-decoration: none;
-                 }  
-                  .menu-btn {
-                   background-color: none; 
-                   background: none;
-                    border: none;
-                  }
-                  .menu-btn:focus {
-                  outline:0;
-                  background-color: #ddd;
-                  background: #ddd;
-                  }       
-                  .menu-btn:hover {
-                   background-color: #ddd;
-                  background: #ddd;
-                  }
-                  .HrAnimation1 {
-                  webkit-animation: pulse 1s cubic-bezier(.25,.46,.45,.94) infinite both; 
-                  animation: pulse 1s cubic-bezier(.25,.46,.45,.94) infinite both;
-                    animation-direction: alternate;
-                  }  
-                  @keyframes pulse {
-                     from {
-                        width: 100%;
-                      }
-                    
-                      to {
-                        width: 20%;
-                      }
-                  }    
-                  @keyframes pulse2 {
-                     from {
-                        width: 50px;
-                      }
-                    
-                      to {
-                        width: 10%;
-                      }
-                  }
-                  .HrAnimation2 {
-                      -webkit-animation: pulse2 1s cubic-bezier(.25,.46,.45,.94) infinite both;
-                      animation: pulse2 1s cubic-bezier(.25,.46,.45,.94) infinite both;
-                      animation-direction: alternate;
-                  }       
-                     `}
-      </style>
     </div>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  }
 }
 
 export default Layout

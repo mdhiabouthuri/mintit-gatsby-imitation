@@ -22,7 +22,6 @@ class Body extends Component {
   }
 
   render() {
-    console.log(this.props.currentPage.allWordpressPost.nodes)
 
     return <div>
       {this.state.blog ? <BlogTemplate currentPagePosts={this.props.currentPage.allWordpressPost.nodes}/> : null}

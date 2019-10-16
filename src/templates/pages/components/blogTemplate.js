@@ -1,40 +1,23 @@
-import React, { Component } from "react"
+import React from "react"
+import { graphql, Link, useStaticQuery } from "gatsby"
 import { Button } from "reactstrap"
-import { Link } from "gatsby"
-import CategoryNav from "../../components/CategoryNav"
-import moment from "moment"
+import moment from "moment/moment"
+import CategoryNav from "../../../components/CategoryNav"
 
-class Body extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isHovered: false,
+const blogTemplate = ({currentPagePosts}) => {
+  let posts = currentPagePosts
+  posts = posts.map((element) => {
+    return {
+      ...element, categories: element.categories.map((subElement) => {
+        return subElement.path.substring(25, 40)
+      }),
     }
-  }
-
-  toggleBtnHover = () => {
-    this.setState({ isHovered: !this.state.isHovered })
-    if (this.state.isHovered)
-      console.log("Hovered")
-    else console.log("notHovered")
-  }
-
-  render() {
-
-    let posts = this.props.currentPage.allWordpressPost.nodes
-    posts = posts.map((element) => {
-      return {
-        ...element, categories: element.categories.map((subElement) => {
-          return subElement.path.substring(25, 40)
-        }),
-      }
-    })
-    const mintythoughts = posts.filter((item) => {
-      return (item.categories.indexOf("/mintythoughts/") >= 0)
-    })
-
-
-    return <div>
+  })
+  const mintythoughts = posts.filter((item) => {
+    return (item.categories.indexOf("/mintythoughts/") >= 0)
+  })
+  return (
+    <div>
       <CategoryNav/>
       {mintythoughts.map((e, i) => {
         return <div key={i} style={{
@@ -97,7 +80,8 @@ class Body extends Component {
         </div>
       })}
     </div>
-  }
+  )
 }
 
-export default Body
+
+export default blogTemplate

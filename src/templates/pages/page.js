@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Body from "./body"
+import Body from "./components/body"
 import Layout from "../../components/Layout"
 
 class PageTemplate extends Component {
@@ -75,8 +75,9 @@ export const pageQuery = graphql`
     query currentPageQuery($id: String!) {
         wordpressPage(id: { eq: $id }) {
             id
-            title
+            slug
             path
+            title
         }
         allWordpressPost {
             nodes {

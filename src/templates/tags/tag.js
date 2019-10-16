@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import moment from "moment"
 import CategoryNav from "../../components/CategoryNav"
 
-class CatTemplate extends Component {
+class TagTemplate extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -135,21 +135,15 @@ class CatTemplate extends Component {
   }
 }
 
-export default CatTemplate
-
-export const pageQuery = graphql`
-    query($id: String!) {
-        wordpressCategory(id: { eq: $id }) {
-            slug
-            id
-            path
-        }
-        allWordpressPost(filter: {categories: {elemMatch: {id: {eq: $id}}}}) {
+export default TagTemplate
+export const tagQuery = graphql`
+    query currentTagQuery($id: String!) {
+        allWordpressPost(filter: {tags: {elemMatch: {id: {eq: $id}}}}) {
             nodes {
                 title
-                excerpt
-                path
+                content
                 date
+                path
                 categories {
                     slug
                 }

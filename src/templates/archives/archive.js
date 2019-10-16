@@ -4,6 +4,8 @@ import { Button, Row, Col } from "reactstrap"
 import { Link } from "gatsby"
 import moment from "moment"
 import Cards from "../../components/Cards"
+import CategoryNav from "../../components/CategoryNav"
+
 class PostTemplate extends Component {
   constructor(props) {
     super(props)
@@ -63,50 +65,36 @@ class PostTemplate extends Component {
               backGround={"https://cdn.discordapp.com/attachments/442248513632468994/631911135519571988/unknown_1.png"}
       >
 
-        <div style={{ backgroundColor: "#4b4b4b", height: "115px" }}>
-          <div style={{ textAlign: "center", position: "relative", top: "22%" }}>
-            <Button className="catBtn">
-              UI - UX
-            </Button>
-            <Button className="catBtn">
-              Web Design
-            </Button>
-            <Button className="catBtn">
-              Technologies
-            </Button>
-            <Button className="catBtn">
-              News
-            </Button>
-          </div>
-        </div>
+        <CategoryNav/>
+
 
         <div style={{
           marginRight: "7.6%",
           marginLeft: "7.6%",
           marginTop: "50px",
         }}>
-            {this.props.data.wordpressPost && this.props.data.wordpressPost.featured_media && this.props.data.wordpressPost.featured_media.localFile.url ?
-              <img
-                src={this.props.data.wordpressPost && this.props.data.wordpressPost.featured_media && this.props.data.wordpressPost.featured_media.localFile.url}
-                width="100%" alt="#"/>
-              : null
-            }
-            <h1 style={{
-              position: "relative",
-              marginTop: "40px",
-              fontFamily: "\"anton\", sans-serif",
-              letterSpacing: "5px", color: "#4a4a4a",
-            }}>
-              {this.props.data.wordpressPost.title}
-            </h1>
-            <div style={{
-              color: "#4a4a4a", fontSize: "20px",
-            }}
-                 dangerouslySetInnerHTML={{
-                   __html:
-                     this.props.data.wordpressPost && this.props.data.wordpressPost.content ? this.props.data.wordpressPost.content : "",
-                 }}
-            />
+          {this.props.data.wordpressPost && this.props.data.wordpressPost.featured_media && this.props.data.wordpressPost.featured_media.localFile.url ?
+            <img
+              src={this.props.data.wordpressPost && this.props.data.wordpressPost.featured_media && this.props.data.wordpressPost.featured_media.localFile.url}
+              width="100%" alt="#"/>
+            : null
+          }
+          <h1 style={{
+            position: "relative",
+            marginTop: "40px",
+            fontFamily: "\"anton\", sans-serif",
+            letterSpacing: "5px", color: "#4a4a4a",
+          }}>
+            {this.props.data.wordpressPost.title}
+          </h1>
+          <div style={{
+            color: "#4a4a4a", fontSize: "20px",
+          }}
+               dangerouslySetInnerHTML={{
+                 __html:
+                   this.props.data.wordpressPost && this.props.data.wordpressPost.content ? this.props.data.wordpressPost.content : "",
+               }}
+          />
           <hr style={{ marginTop: "50px" }}/>
           <div>
             <img style={{ borderRadius: "50%", marginBottom: "15px", float: "left" }}
@@ -137,7 +125,7 @@ class PostTemplate extends Component {
             : null}</div>
           <hr/>
         </div>
-      <Cards/>
+        <Cards/>
       </Layout>
     )
   }

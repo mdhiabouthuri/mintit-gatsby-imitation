@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Button } from "reactstrap"
 import { Link } from "gatsby"
+import CategoryNav from "../../components/CategoryNav"
 import moment from "moment"
 
 class Body extends Component {
@@ -20,36 +21,22 @@ class Body extends Component {
 
   render() {
 
-    let posts = this.props.currentPage.allWordpressPost.nodes.filter(e => {
-      return e.categories && e.categories[1] ? e.categories[1].slug === "uiux" || e.categories[1].slug === "webdesign"
-        || e.categories[1].slug === "news" || e.categories[1].slug === "technologies"
-        : e.categories && e.categories[2] ? e.categories[2].slug === "uiux" || e.categories[2].slug === "webdesign"
-          || e.categories[2].slug === "news" || e.categories[2].slug === "technologies" : e.categories[0].slug === "uiux" ||
-          e.categories[0].slug === "webdesign" || e.categories[0].slug === "news" || e.categories[0].slug === "technologies"
-
+    let posts = this.props.currentPage.allWordpressPost.nodes
+    posts = posts.map((element) => {
+      return {
+        ...element, categories: element.categories.map((subElement) => {
+          return subElement.path.substring(25, 40)
+        }),
+      }
+    })
+    const mintythoughts = posts.filter((item) => {
+      return (item.categories.indexOf("/mintythoughts/") >= 0)
     })
 
 
-
     return <div>
-
-      <div style={{ backgroundColor: "#4b4b4b", height: "115px" }}>
-        <div style={{ textAlign: "center", position: "relative", top: "22%" }}>
-          <Button className="catBtn">
-            UI - UX
-          </Button>
-          <Button className="catBtn">
-            Web Design
-          </Button>
-          <Button className="catBtn">
-            Technologies
-          </Button>
-          <Button className="catBtn">
-            News
-          </Button>
-        </div>
-      </div>
-      {posts.map((e, i) => {
+      <CategoryNav/>
+      {mintythoughts.map((e, i) => {
         return <div key={i} style={{
           marginRight: "7.6%",
           marginLeft: "7.6%",

@@ -3,7 +3,6 @@ import { graphql, useStaticQuery } from "gatsby"
 import RBCarousel from "react-bootstrap-carousel"
 import "bootstrap/dist/css/bootstrap.css"
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css"
-import styled, { keyframes } from "styled-components"
 
 import { Col, Row } from "reactstrap"
 
@@ -23,7 +22,7 @@ const Carousel1 = ({ windowsSize }) => {
       }
   `)
 
-  const [hover, setHover] = useState(true)
+  const [hover, setHover] = useState(false)
   const path = window.location.pathname.replace(/\//g, "").replace(/-/g, "").replace(/page/g, "")
 
   // console.log(path.charAt(path.length - 1) === "s" ? path.slice(0, -1) + "" : path)
@@ -45,7 +44,6 @@ const Carousel1 = ({ windowsSize }) => {
     ) >= 0)
   })
   let filteredResult = result.filter(e => e.slug !== "its-about-time-2")
-  console.log(filteredResult)
 
   // function filterByValue(array, string) {
   //   return array.filter(o =>
@@ -67,7 +65,7 @@ const Carousel1 = ({ windowsSize }) => {
       <RBCarousel
         animation={true}
         autoplay={true}
-        slideshowSpeed={3000}
+        slideshowSpeed={5000}
         defaultActiveIndex={0}
         version={4}
         className='carousel1'
@@ -77,7 +75,7 @@ const Carousel1 = ({ windowsSize }) => {
           return <div key={i} style={Object.assign({
             height: 400,
             color: "white",
-          }, windowsSize >= 991 ? { width: "80%" } : { width: "99%" })}>
+          }, windowsSize >= 991 ? { width: "70%" } : { width: "99%" })}>
             <Row className="no-gutters" style={{ paddingTop: "40px" }}>
               <Col style={{ width: "800px" }}>
                 <h1 style={{
@@ -90,7 +88,7 @@ const Carousel1 = ({ windowsSize }) => {
                 </p>
               </Col>
               {windowsSize >= 991 ?
-                <Col md={1} style={{ transform: "rotate(90deg)", position: "absolute", left: "80%" }}>
+                <Col md={1} style={{ transform: "rotate(90deg)", position: "absolute", left: "77%" }}>
                   {hover ?
                     <div style={{ transform: "rotate(-90deg)", position: "relative", left: "62px", bottom: "44px" }}>
                       <a target="_blank" href="https://www.facebook.com/MintITApps">

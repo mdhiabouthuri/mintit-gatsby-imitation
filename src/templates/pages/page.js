@@ -62,8 +62,6 @@ class PageTemplate extends Component {
       >
 
         <Body
-          windowsSize={this.state.windowsSize}
-          isScrolled={this.state.isScrolled}
           currentPage={this.props.data}
         />
       </Layout>
@@ -87,7 +85,7 @@ export const pageQuery = graphql`
                 path
                 date
                 categories {
-                    slug
+                    path
                 }
                 featured_media {
                     localFile {

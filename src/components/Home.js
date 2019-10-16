@@ -155,13 +155,14 @@ class Home extends Component {
               </div>}
           </div>
         </div>
-        <div style={{ marginBottom: "40px" }} className='SecondBackGround'>
+        <div  className='SecondBackGround'>
           <Carousel2 windowsSize={this.props.windowsSize}/>
         </div>
         <Cards/>
-        <h1 style={{
+
+        <h1 id={'contact'} style={{
           position: "relative",
-          marginTop: "40px",
+          marginTop: "80px",
           fontFamily: "\"anton\", sans-serif",
           letterSpacing: "5px", textAlign: "center", color: "#4a4a4a",
         }}>

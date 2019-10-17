@@ -51,6 +51,7 @@ export const pageQuery = graphql`
                 date
                 categories {
                     path
+                    slug
                 }
                 featured_media {
                     localFile {

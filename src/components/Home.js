@@ -155,12 +155,12 @@ class Home extends Component {
               </div>}
           </div>
         </div>
-        <div  className='SecondBackGround'>
+        <div className='SecondBackGround'>
           <Carousel2 windowsSize={this.props.windowsSize}/>
         </div>
         <Cards/>
 
-        <h1 id={'contact'} style={{
+        <h1 id={"contact"} style={{
           position: "relative",
           marginTop: "80px",
           fontFamily: "\"anton\", sans-serif",

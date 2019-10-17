@@ -13,14 +13,13 @@ class index extends React.Component {
   }
 
 
-
   handleState = (state, newState) => {
     this.setState({ [state]: newState })
   }
 
 
   render() {
-
+    console.log('index',this.state.windowsSize)
     return (
       <Layout handleState={this.handleState.bind(this)}
               backGround={"https://cdn.discordapp.com/attachments/442248513632468994/630738100737409034/Capture.PNG"}>

@@ -15,13 +15,24 @@ class Layout extends Component {
     }
   }
 
-
-  componentDidMount() {
-    this.handleWindowSizeChange()
-    this.handleWindowSizeChange()
+  componentWillMount() {
     window.addEventListener("scroll", this.handleScroll)
     window.addEventListener("resize", this.handleWindowSizeChange)
   }
+
+  componentDidMount() {
+    setTimeout(function () {
+      this.handleWindowSizeChange()
+    }.bind(this), 20)
+
+  }
+
+
+  // componentWillReceiveProps(nextProps, nextContext) {
+  //     // setTimeout(() => {
+  //     //   this.props.handleState("windowsSize", this.state.windowsSize)
+  //     // }, 1000)
+  // }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll)
@@ -46,7 +57,6 @@ class Layout extends Component {
       })
       this.props.handleState("dropdownOpen", this.state.dropdownOpen)
     }
-
     this.setState({
       windowsSize: window.innerWidth,
     })
@@ -60,7 +70,7 @@ class Layout extends Component {
   }
 
   render() {
-
+    console.log(this.state.windowsSize)
     return <div>
       <Header dropdownOpen={this.state.dropdownOpen}
               windowsSize={this.state.windowsSize}

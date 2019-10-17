@@ -4,18 +4,17 @@ import { Button } from "reactstrap"
 import moment from "moment/moment"
 import CategoryNav from "../../../components/CategoryNav"
 
-const blogTemplate = ({currentPagePosts}) => {
-  let posts = currentPagePosts
-  posts = posts.map((element) => {
-    return {
-      ...element, categories: element.categories.map((subElement) => {
-        return subElement.path.substring(25, 40)
-      }),
-    }
+const blogTemplate = ({ currentPagePosts }) => {
+
+  const mintythoughts = currentPagePosts.filter(function(resource) {
+    return resource
+      .categories
+      .some(function(category) {
+        return category.slug === "mintythoughts"
+      })
   })
-  const mintythoughts = posts.filter((item) => {
-    return (item.categories.indexOf("/mintythoughts/") >= 0)
-  })
+
+
   return (
     <div>
       <CategoryNav/>

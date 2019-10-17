@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import RBCarousel from "react-bootstrap-carousel"
 import "bootstrap/dist/css/bootstrap.css"
@@ -23,40 +23,37 @@ const Carousel1 = ({ windowsSize }) => {
   `)
 
   const [hover, setHover] = useState(false)
-  const path = window.location.pathname.replace(/\//g, "").replace(/-/g, "").replace(/page/g, "")
+  const [posts, setPosts] = useState([])
 
-  // console.log(path.charAt(path.length - 1) === "s" ? path.slice(0, -1) + "" : path)
+  useEffect(() => {
+    const path = window.location.pathname.replace(/\//g, "").replace(/-/g, "").replace(/page/g, "")
+    let allPosts = data.allWordpressPost.nodes
+    allPosts = allPosts.map((element) => {
+      return {
+        ...element, categories: element.categories.map((subElement) => {
+          return subElement.slug.replace(/-/g, "").replace(/header/g, "")
+        }),
+      }
+    })
 
-  let posts = data.allWordpressPost.nodes
-  posts = posts.map((element) => {
-    return {
-      ...element, categories: element.categories.map((subElement) => {
-        return subElement.slug.replace(/-/g, "").replace(/header/g, "")
-      }),
-    }
-  })
+
+    const result = allPosts.filter((item) => {
+      return (item.categories.indexOf(
+        path !== "" ? path.charAt(path.length - 2) !== "s" && path.charAt(path.length - 1) === "s" ? path.slice(0, -1) + "" : path
+          : "index",
+      ) >= 0)
+    })
+
+    let filteredResult = result.filter(e => e.slug !== "its-about-time-2")
+    const blog = allPosts.filter((item) => {
+      return (item.categories.indexOf("blog") >= 0)
+    })
+    if (filteredResult.length !== 0)
+      setPosts(filteredResult)
+    else setPosts(blog)
+  }, [])
 
 
-  const result = posts.filter((item) => {
-    return (item.categories.indexOf(
-      path !== "" ? path.charAt(path.length - 2) !== "s" && path.charAt(path.length - 1) === "s" ? path.slice(0, -1) + "" : path
-        : "index",
-    ) >= 0)
-  })
-  let filteredResult = result.filter(e => e.slug !== "its-about-time-2")
-
-  // function filterByValue(array, string) {
-  //   return array.filter(o =>
-  //     Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())))
-  // }
-  //
-  // const arrayOfObject = [{ name: "Paul", country: "Canada" }, { name: "Lea", country: "Italy" }, {
-  //   name: "John",
-  //   country: "Italy",
-  // }]
-
-  // console.log(filterByValue(arrayOfObject, 'lea')); // [{name: 'Lea', country: 'Italy'}]
-// console.log(filterByValue(arrayOfObject, 'ita'));
 
   return (
     <div onMouseEnter={() => setHover(true)}
@@ -71,7 +68,7 @@ const Carousel1 = ({ windowsSize }) => {
         className='carousel1'
         indicators={false}
       >
-        {filteredResult.map((e, i) => {
+        {posts.map((e, i) => {
           return <div key={i} style={Object.assign({
             height: 400,
             color: "white",
